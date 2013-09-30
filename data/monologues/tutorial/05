@@ -1,0 +1,2 @@
+Use $contextKey to enter the terminal menu, where you can access the robots.
+Select a color using $leftKey and $rightKey and confirm with $jumpKey.

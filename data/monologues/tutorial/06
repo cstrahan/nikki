@@ -1,0 +1,3 @@
+Use $leftKey, $rightKey and $jumpKey to control the robot.
+$contextKey will bring up the terminal menu again.
+You can go back to Nikki by selecting the eject icon: ⏏

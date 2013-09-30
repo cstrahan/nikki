@@ -1,0 +1,187 @@
+Name:           nikki
+version:        1.0.1
+Category:       Game
+Author:         Florian Hofer, Sönke Hahn
+Maintainer:     shahn@joyridelabs.de
+
+Extra-source-files:
+    LICENSE
+    README
+    data/LICENSE
+    data/README
+    data/manual/editor.txt
+
+Build-Type:     Simple
+Cabal-Version:  >= 1.8
+
+data-dir:
+    ../../data
+
+data-files:
+    LICENSE,
+    manual/*.txt,
+    menu/*.desktop,
+    monologues/tutorial/01,
+    monologues/tutorial/02,
+    monologues/tutorial/03,
+    monologues/tutorial/04,
+    monologues/tutorial/05,
+    monologues/tutorial/06,
+    music/*.ogg,
+    music/*.ogg.license,
+    music/README,
+    png/backgrounds/blue/*.png,
+    png/backgrounds/greynoise/*.png,
+    png/battery/*.png,
+    png/deathstones/lasers/*.png,
+    png/font/*.png,
+    png/font/digits/*.png,
+    png/font/README,
+    png/*.png,
+    png/*.icns,
+    png/multilayers/*.png,
+    png/nikki/*.png,
+    png/objects/*.png,
+    png/osd/background/*.png,
+    png/osd/backgroundOverlay/*.png,
+    png/osd/*.png,
+    png/robots/cannon/*.png,
+    png/robots/conveyor/*.png,
+    png/robots/eyes/*.png,
+    png/robots/jetpack/*.png,
+    png/robots/laser/*.png,
+    png/robots/patrol/*.png,
+    png/robots/platform/*.png,
+    png/robots/train/*.png,
+    png/sign/*.png,
+    png/terminals/*.png,
+    png/terminals/osd/*.png,
+    png/tiles/*.png,
+    png/tutorial/*.png,
+    README,
+    sounds/bfxr/*.bfxrsound,
+    sounds/game/*.wav,
+    sounds/game/*.bfxr,
+    sounds/game/*.wav.license,
+    sounds/menu/*.wav,
+    sounds/README,
+    standardLevels/01-Tutorial/*.nl,
+    standardLevels/01-Tutorial/*.nl.meta,
+    standardLevels/02-QuickDemo/*.nl,
+    standardLevels/02-QuickDemo/*.nl.meta,
+    standardLevels/03-Contest1/*.nl,
+    standardLevels/03-Contest1/*.nl.meta,
+    standardLevels/03-Contest1/*.txt,
+    standardLevels/03-Contest1/*.1.nl,
+    standardLevels/03-Contest1/*.1.nl.meta,
+    standardLevels/03-Contest1/*.1.txt,
+    svg/*.svg,
+    templateLevels/*.nl
+
+
+Flag Devel
+    Description: No Optimizations and no executable stripping
+    Default:    False
+
+Executable nikki
+    main-is:
+        Main.hs
+
+    other-modules:
+        Paths_nikki
+
+    hs-source-dirs:
+        ../
+
+    if flag(Devel)
+        ghc-options:
+            -O0
+    else
+        ghc-options:
+            -O2
+            -optl-s
+
+    if impl(ghc >= 7)
+        cpp-options:     -DGHC7
+
+    cpp-options: -DRootInstall
+
+    ghc-options:
+        -threaded
+
+    if os(darwin)
+        cc-options:
+            -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5
+        ld-options:
+            -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5
+            -headerpad_max_install_names
+
+    build-depends:
+          aeson
+        , base == 4.5.*
+        , bifunctors
+        , binary
+        , binary-communicator >= 1.0.2
+        , bytestring >= 0.9.1.7
+        , clocked == 0.4.1.*
+        , cmdargs >= 0.6.6
+        , containers
+        , crypto-pubkey-types == 0.1.*
+        , data-accessor >= 0.2.1.7
+        , data-accessor-mtl >= 0.2.0.2
+        , deepseq == 1.3.*
+        , directory
+        , email-validate
+        , filepath
+        , FindBin >= 0.0.5
+        , hashable == 1.1.*
+        , Hipmunk >= 5.2.0.6
+        , HTTP == 4000.2.*
+        , LibZip >= 0.2.0.4
+        , MonadCatchIO-transformers >= 0.2.2.2
+        , mtl == 2.* && (< 2.1 || > 2.1)
+        , network == 2.*
+        , parsec == 3.*
+        , process
+        , random
+        , RSA >= 1.2.1
+        , safe
+        , sfml-audio == 0.7.* && >= 0.7.1
+        , StateVar
+        , strict >= 0.3.2
+        , stickyKeysHotKey == 0.1.*
+        , template == 0.2.*
+        , temporary >= 1.1.1
+        , text
+        , time
+        , transformers == 0.2.* || == 0.3.*
+        , uniplate >= 1.6
+        , utf8-string == 0.3.*
+        , vector == 0.10.*
+
+    if os(linux)
+        extra-libraries:
+            qtwrapper, QtOpenGL, QtGui
+        extra-lib-dirs:
+            ../cpp/dist
+
+    -- * windows linking :(
+    if os(mingw32)
+        ld-options:
+            -- omit the console on windows. You can't use stdout without causing errors then...
+            -mwindows
+        ghc-options:
+            -pgma gcc -pgmc gcc -pgml gcc -pgmwindres windres
+        extra-libraries:
+            qtwrapper, QtOpenGL4, QtGui4, QtCore4, stdc++
+        extra-lib-dirs:
+            cpp/dist/,
+            C:/Qt/2010.02.1/qt/lib/
+
+    if os(darwin)
+        extra-libraries:
+            qtwrapper
+        extra-lib-dirs:
+            cpp/dist/
+        frameworks:
+            QtOpenGL, QtGui, QtCore

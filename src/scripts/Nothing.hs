@@ -1,0 +1,3 @@
+
+-- do nothing
+main = return ()

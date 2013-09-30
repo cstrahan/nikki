@@ -1,0 +1,30 @@
+CREDITS
+
+Joyride Labs:
+* Florian Hofer
+* Sönke Hahn
+* Nikolaus Muxfeldt
+* Iwan Gabovitch
+
+Graphics and Programming by:
+* Joyride Labs
+
+Music by:
+* chadsicle
+* horrorpen
+* Merutochan
+
+Sounds by:
+* jobro
+* Joyride Labs
+* Ari Mustonen
+* sauer2
+
+Level Contest 1 Designers:
+* 2048 Terrabit (Robot Race)
+* 3sdras (Geronimo)
+* Jukkeri (Trick Series 02)
+* Julian (Greed)
+* Marius Ghita/mhitza (stairway to heaven)
+* pixma (robopractice)
+* sauer2/C. Hackenberg (lootninja, hanoi, powergrid and obstacles)
